@@ -31,86 +31,86 @@ function PhoneContact(props) {
     const initialContacts = [
         {
             id: 1,
-            name: "John Doe",
-            phone: "(123) 456-7890",
-            email: "john@example.com",
+            name: "Nguyễn Văn A",
+            phone: "(091) 234-5678",
+            email: "nguyenvana@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: true,
         },
         {
             id: 2,
-            name: "Jane Smith",
-            phone: "(234) 567-8901",
-            email: "jane@example.com",
+            name: "Trần Thị B",
+            phone: "(092) 345-6789",
+            email: "tranthib@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 3,
-            name: "Robert Johnson",
-            phone: "(345) 678-9012",
-            email: "robert@example.com",
+            name: "Lê Văn C",
+            phone: "(093) 456-7890",
+            email: "levanc@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: true,
         },
         {
             id: 4,
-            name: "Emily Davis",
-            phone: "(456) 789-0123",
-            email: "emily@example.com",
+            name: "Phạm Thị D",
+            phone: "(094) 567-8901",
+            email: "phamthid@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 5,
-            name: "Michael Wilson",
-            phone: "(567) 890-1234",
-            email: "michael@example.com",
+            name: "Hoàng Văn E",
+            phone: "(095) 678-9012",
+            email: "hoangvane@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 6,
-            name: "Sarah Brown",
-            phone: "(678) 901-2345",
-            email: "sarah@example.com",
+            name: "Võ Thị F",
+            phone: "(096) 789-0123",
+            email: "vothif@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: true,
         },
         {
             id: 7,
-            name: "David Miller",
-            phone: "(789) 012-3456",
-            email: "david@example.com",
+            name: "Đặng Văn G",
+            phone: "(097) 890-1234",
+            email: "dangvang@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 8,
-            name: "Lisa Anderson",
-            phone: "(890) 123-4567",
-            email: "lisa@example.com",
+            name: "Bùi Thị H",
+            phone: "(098) 901-2345",
+            email: "buithih@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 9,
-            name: "Thomas Taylor",
-            phone: "(901) 234-5678",
-            email: "thomas@example.com",
+            name: "Ngô Văn I",
+            phone: "(099) 012-3456",
+            email: "ngovani@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: true,
         },
         {
             id: 10,
-            name: "Jennifer White",
-            phone: "(012) 345-6789",
-            email: "jennifer@example.com",
+            name: "Dương Thị K",
+            phone: "(090) 123-4567",
+            email: "duongthik@example.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
-    ]
-    const [ isDialog, setIsDiaLog ] = useState(true);
+    ];
+    const [ isDiaLog, setisDiaLog ] = useState(false);
     const [ contacts, setContacts ] = useState(initialContacts)
     const [ searchTerm, setSearchTerm ] = useState("")
     const [ selectedContact, setSelectedContact ] = useState(null)
@@ -145,10 +145,16 @@ function PhoneContact(props) {
     })
 
     const handleClick = () => {
-        setIsDiaLog(!isDialog);
+        setisDiaLog(!isDiaLog);
     }
 
-    console.log(isDialog);
+    const addPersonal = (data) => {
+        setContacts((prev) => {
+            return [ ...prev, data ]
+        })
+    }
+
+    console.log(isDiaLog);
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
             <Paper elevation={3} sx={{ borderRadius: 2, overflow: "hidden" }}>
@@ -342,7 +348,7 @@ function PhoneContact(props) {
                     </Grid>
                 </Grid>
             </Paper>
-            <AddPersonAdd isDiaLog={isDialog} />
+            <AddPersonAdd isDiaLog={isDiaLog} setIsDiaLog={setisDiaLog} onSubmit={addPersonal} />
         </Container>
     )
 }
