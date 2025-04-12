@@ -1,0 +1,15 @@
+.todo-List{
+    & > li{
+        cursor: pointer;
+    }
+
+    & > li.completed{
+        font-style: italic;
+        color: #ccc;
+        text-decoration: line-through;
+    }
+}
+
+.khanhkomonny{
+    border: 1px solid black;
+}
