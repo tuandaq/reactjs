@@ -32,80 +32,80 @@ function PhoneContact(props) {
         {
             id: 1,
             name: "Nguyễn Văn A",
-            phone: "(091) 234-5678",
-            email: "nguyenvana@example.com",
+            phone: "(091) 234 5678",
+            email: "nguyenvana@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: true,
         },
         {
             id: 2,
             name: "Trần Thị B",
-            phone: "(092) 345-6789",
-            email: "tranthib@example.com",
+            phone: "(092) 345 6789",
+            email: "tranthib@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 3,
             name: "Lê Văn C",
-            phone: "(093) 456-7890",
-            email: "levanc@example.com",
+            phone: "(093) 456 7890",
+            email: "levanc@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: true,
         },
         {
             id: 4,
             name: "Phạm Thị D",
-            phone: "(094) 567-8901",
-            email: "phamthid@example.com",
+            phone: "(094) 567 8901",
+            email: "phamthid@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 5,
             name: "Hoàng Văn E",
-            phone: "(095) 678-9012",
-            email: "hoangvane@example.com",
+            phone: "(095) 678 9012",
+            email: "hoangvane@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 6,
             name: "Võ Thị F",
-            phone: "(096) 789-0123",
-            email: "vothif@example.com",
+            phone: "(096) 789 0123",
+            email: "vothif@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: true,
         },
         {
             id: 7,
             name: "Đặng Văn G",
-            phone: "(097) 890-1234",
-            email: "dangvang@example.com",
+            phone: "(097) 890 1234",
+            email: "dangvang@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 8,
             name: "Bùi Thị H",
-            phone: "(098) 901-2345",
-            email: "buithih@example.com",
+            phone: "(098) 901 2345",
+            email: "buithih@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
         {
             id: 9,
             name: "Ngô Văn I",
-            phone: "(099) 012-3456",
-            email: "ngovani@example.com",
+            phone: "(099) 012 3456",
+            email: "ngovani@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: true,
         },
         {
             id: 10,
             name: "Dương Thị K",
-            phone: "(090) 123-4567",
-            email: "duongthik@example.com",
+            phone: "(090) 123 4567",
+            email: "duongthik@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
         },
@@ -170,7 +170,7 @@ function PhoneContact(props) {
                     }}
                 >
                     <Typography variant="h5" component="h1" fontWeight="bold">
-                        Contacts
+                        Danh bạ
                     </Typography>
                     <IconButton onClick={handleClick} color="inherit" aria-label="add contact">
                         <PersonAdd />
@@ -193,7 +193,7 @@ function PhoneContact(props) {
                         <Box sx={{ p: 2, position: "sticky", top: 0, bgcolor: "background.paper", zIndex: 1 }}>
                             <TextField
                                 fullWidth
-                                placeholder="Search contacts..."
+                                placeholder=" Tìm kiếm liên hệ "
                                 variant="outlined"
                                 size="small"
                                 value={searchTerm}
@@ -341,7 +341,7 @@ function PhoneContact(props) {
                                 }}
                             >
                                 <Typography variant="h6" color="text.secondary" align="center">
-                                    Select a contact to view details
+                                    Chọn 1 liên hệ để xem chi tiết
                                 </Typography>
                             </Box>
                         )}
