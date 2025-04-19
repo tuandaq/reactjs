@@ -20,10 +20,14 @@ import {
     CardContent,
     useMediaQuery,
     useTheme,
+    Dialog,
+    Button,
 } from "@mui/material"
 import { Search, Phone, Email, Star, StarBorder, PersonAdd } from "@mui/icons-material"
 import ContactQRCode from './component/ContactQRCode';
 import AddPersonAdd from './component/AddPersonAdd';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 
@@ -32,15 +36,15 @@ function PhoneContact(props) {
         {
             id: 1,
             name: "Nguyễn Văn A",
-            phone: "(091) 234 5678",
+            phone: "0912345678",
             email: "nguyenvana@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
-            favorite: true,
+            favorite: false,
         },
         {
             id: 2,
             name: "Trần Thị B",
-            phone: "(092) 345 6789",
+            phone: "0912345678",
             email: "tranthib@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
@@ -48,15 +52,15 @@ function PhoneContact(props) {
         {
             id: 3,
             name: "Lê Văn C",
-            phone: "(093) 456 7890",
+            phone: "0912345678",
             email: "levanc@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
-            favorite: true,
+            favorite: false,
         },
         {
             id: 4,
             name: "Phạm Thị D",
-            phone: "(094) 567 8901",
+            phone: "0912345678",
             email: "phamthid@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
@@ -64,7 +68,7 @@ function PhoneContact(props) {
         {
             id: 5,
             name: "Hoàng Văn E",
-            phone: "(095) 678 9012",
+            phone: "0912345678",
             email: "hoangvane@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
@@ -72,15 +76,15 @@ function PhoneContact(props) {
         {
             id: 6,
             name: "Võ Thị F",
-            phone: "(096) 789 0123",
+            phone: "0912345678",
             email: "vothif@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
-            favorite: true,
+            favorite: false,
         },
         {
             id: 7,
             name: "Đặng Văn G",
-            phone: "(097) 890 1234",
+            phone: "0912345678",
             email: "dangvang@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
@@ -88,7 +92,7 @@ function PhoneContact(props) {
         {
             id: 8,
             name: "Bùi Thị H",
-            phone: "(098) 901 2345",
+            phone: "0912345678",
             email: "buithih@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
@@ -96,15 +100,15 @@ function PhoneContact(props) {
         {
             id: 9,
             name: "Ngô Văn I",
-            phone: "(099) 012 3456",
+            phone: "0912345678",
             email: "ngovani@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
-            favorite: true,
+            favorite: false,
         },
         {
             id: 10,
             name: "Dương Thị K",
-            phone: "(090) 123 4567",
+            phone: "0912345678",
             email: "duongthik@gmail.com.com",
             avatar: "/placeholder.svg?height=40&width=40",
             favorite: false,
@@ -116,6 +120,10 @@ function PhoneContact(props) {
     const [ selectedContact, setSelectedContact ] = useState(null)
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down("md"))
+    const [ confirmDelete, setConfirmDelete ] = useState(false);
+    const [ contactToDelete, setContactToDelete ] = useState(null);
+    const [ edit, setEdit ] = useState(false);
+
 
     // Filter contacts based on search term
     useEffect(() => {
@@ -148,13 +156,47 @@ function PhoneContact(props) {
         setisDiaLog(!isDiaLog);
     }
 
-    const addPersonal = (data) => {
-        setContacts((prev) => {
-            return [ ...prev, data ]
-        })
-    }
+    const addAndEditPersonal = (data) => {
+        if (data.id) {
+            const updatedContact = { ...data };
+            setContacts((prevContacts) =>
+                prevContacts.map((item) =>
+                    item.id === data.id ? { ...item, ...data } : item
+                )
+            );
 
-    console.log(isDiaLog);
+            setSelectedContact(updatedContact);
+        } else {
+            const newContact = { ...data, id: Date.now() };
+            setContacts((prev) => [ ...prev, newContact ]);
+        }
+    };
+
+    const confirmDeleteContact = () => {
+        if (contactToDelete) {
+            setContacts((prevContacts) =>
+                prevContacts.filter((c) => c.id !== contactToDelete.id)
+            );
+            if (selectedContact?.id === contactToDelete.id) {
+                setSelectedContact(null);
+            }
+        }
+        setConfirmDelete(false);
+        setContactToDelete(null);
+    };
+
+    const cancelDelete = () => {
+        setConfirmDelete(false);
+        setContactToDelete(null);
+    };
+
+    const handleDeleteClick = (contact) => {
+        setContactToDelete(contact);
+        setConfirmDelete(true);
+    };
+
+
+
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
             <Paper elevation={3} sx={{ borderRadius: 2, overflow: "hidden" }}>
@@ -275,25 +317,36 @@ function PhoneContact(props) {
                                         display: "flex",
                                         flexDirection: isMobile ? "column" : "row",
                                         alignItems: isMobile ? "center" : "flex-start",
+                                        justifyContent: 'space-between',
                                         gap: 3,
                                         mb: 4,
                                     }}
                                 >
-                                    <Avatar
-                                        src={selectedContact.avatar}
-                                        alt={selectedContact.name}
-                                        sx={{ width: 100, height: 100, fontSize: 40 }}
-                                    >
-                                        {selectedContact.name.charAt(0)}
-                                    </Avatar>
-                                    <Box sx={{ textAlign: isMobile ? "center" : "left" }}>
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                                            <Typography variant="h4" component="h2" fontWeight="bold">
-                                                {selectedContact.name}
-                                            </Typography>
-                                            {selectedContact.favorite && <Star color="warning" />}
+                                    <Box>
+                                        <Avatar
+                                            src={selectedContact.avatar}
+                                            alt={selectedContact.name}
+                                            sx={{ width: 100, height: 100, fontSize: 40 }}
+                                        >
+                                            {selectedContact.name.charAt(0)}
+                                        </Avatar>
+                                        <Box sx={{ textAlign: isMobile ? "center" : "left" }}>
+                                            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                                                <Typography variant="h4" component="h2" fontWeight="bold">
+                                                    {selectedContact.name}
+                                                </Typography>
+                                                {selectedContact.favorite && <Star color="warning" />}
+                                            </Box>
+                                            <Chip label="Personal" size="small" color="primary" variant="outlined" />
                                         </Box>
-                                        <Chip label="Personal" size="small" color="primary" variant="outlined" />
+                                    </Box>
+                                    <Box display={'flex'} alignItems={'center'}>
+                                        <IconButton color='info' onClick={() => setEdit(true)}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton onClick={() => handleDeleteClick(selectedContact)}>
+                                            <DeleteIcon color='error' />
+                                        </IconButton>
                                     </Box>
                                 </Box>
 
@@ -325,7 +378,7 @@ function PhoneContact(props) {
                                         </Card>
                                     </Grid>
                                 </Grid>
-                                <Box>
+                                <Box sx={{ marginTop: '30px' }}>
                                     <ContactQRCode contact={selectedContact}></ContactQRCode>
                                 </Box>
                             </Box>
@@ -348,7 +401,24 @@ function PhoneContact(props) {
                     </Grid>
                 </Grid>
             </Paper>
-            <AddPersonAdd isDiaLog={isDiaLog} setIsDiaLog={setisDiaLog} onSubmit={addPersonal} />
+            <AddPersonAdd isDiaLog={isDiaLog} setIsDiaLog={setisDiaLog} onSubmit={addAndEditPersonal} />
+            <Dialog open={confirmDelete} onClose={cancelDelete}>
+                <Box sx={{ p: 3 }}>
+                    <Typography variant="h6" gutterBottom>
+                        Xác nhận xoá
+                    </Typography>
+                    <Typography>Bạn có chắc muốn xoá liên hệ "{contactToDelete?.name}" không?</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2, mt: 3 }}>
+                        <Button variant="outlined" onClick={cancelDelete}>
+                            Hủy
+                        </Button>
+                        <Button variant="contained" color="error" onClick={confirmDeleteContact}>
+                            Xoá
+                        </Button>
+                    </Box>
+                </Box>
+            </Dialog>
+            {edit && <AddPersonAdd edit={edit} setEdit={setEdit} onSubmit={addAndEditPersonal} data={selectedContact} />}
         </Container>
     )
 }

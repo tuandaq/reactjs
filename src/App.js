@@ -6,9 +6,9 @@ import PhoneContact from './features/PhoneContact';
 function App() {
   return (
     <div className="App">
-      <Header></Header>
+      {/* <Header></Header> */}
       <Routes>
-        <Route path='/contact' element={<PhoneContact />} />
+        <Route path='' element={<PhoneContact />} />
       </Routes>
 
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card } from '@mui/material';
+import { Box, Button, Card } from '@mui/material';
 import { QRCodeCanvas } from 'qrcode.react';
 
 ContactQRCode.propTypes = {
@@ -21,7 +21,7 @@ function ContactQRCode({ contact }) {
     };
     return (
         <Card className="p-4 flex flex-col items-center">
-            <img
+            {/* <img
                 src={contact.avatar}
                 alt={contact.name}
                 className="w-16 h-16 rounded-full mb-2"
@@ -29,8 +29,10 @@ function ContactQRCode({ contact }) {
             <h3 className="text-lg font-semibold">{contact.name}</h3>
             <p>{contact.phone}</p>
             <p>{contact.email}</p>
-            <p className="text-sm text-gray-500">{contact.address}</p>
-            <QRCodeCanvas value={JSON.stringify(contact)} size={128} className="mt-4" />
+            <p className="text-sm text-gray-500">{contact.address}</p> */}
+            <Box>
+                <QRCodeCanvas value={JSON.stringify(contact)} size={128} className="mt-4" />
+            </Box>
             <Button className="mt-2" onClick={downloadQRCode}>
                 Tải QR Code
             </Button>
